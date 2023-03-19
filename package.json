@@ -1,0 +1,20 @@
+{
+  "name": "muzzle-shock",
+  "version": "1.0.0",
+  "description": "bisim coding test",
+  "main": "muzzle-shock.js",
+  "type": "module",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Pasha127/muzzle-shock.git"
+  },
+  "author": "Paul Levitsky",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Pasha127/muzzle-shock/issues"
+  },
+  "homepage": "https://github.com/Pasha127/muzzle-shock#readme"
+}
