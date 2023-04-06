@@ -1,4 +1,4 @@
-import {allUnits, getVector3Angle, getVector3, setBlindness, setDeafness, calibers} from VBS3;
+import {allUnits, getVector3Angle, getVector3,setKnockout, setBlindness, setDeafness, calibers} from VBS3;
 
 const dBAtUnit = (caliber, distance) => {
     // Volume of weapon experienced by unit based on weapon caliber and distance from source
@@ -8,9 +8,9 @@ const dBAtUnit = (caliber, distance) => {
     //console.log(`The volume experienced by ${unit.id} from a ${caliber} weapon is ${dB} db`);
     return dB;   
   };
+const getDistance =(objectAPositionVector, objectBPositionVector) =>{ getVector3(weaponPos).distanceTo(getVector3(soldierPos));}           // distance in meters between source and unit
 
-
-const muzzleShock = (weapon) => {
+const muzzleShock = (weapon ) => {
     // constants assumed to be constant for all weapons
     const highEfectAngle = 60; // constant effect angle for all weapons as specced in the task - based on estimate from image in task
     const lowEfectAngle = 135; // constant effect angle for all weapons as specced in the task - based on estimate from image in task
@@ -21,7 +21,7 @@ const muzzleShock = (weapon) => {
 
 
     allUnits?.forEach(soldier => {
-        const distance = getVector3(weapon.muzzlePos).distanceTo(getVector3(soldier.position));           // distance in meters between source and unit
+        const distance = getDistance(weapon.muzzlePos, soldier.position);                        // distance between weapon muzzle and unit
         if(distance < highEffectRadius) {                                                                 // only calculate effect if unit is within high effect radius
             const angleToUnit = getVector3Angle(weapon.muzzlePos, weapon.muzzleDir, soldier.position);    // angle in degrees between weapon muzzle vector and unit
             const dB = dBAtUnit(weapon.caliber, distance);
@@ -43,6 +43,9 @@ const muzzleShock = (weapon) => {
                 default:
                     break;
             }
+        }
+        if (distance < (highEffectRadius/2)){
+            setKnockout(soldier);
         }
         });
     };
